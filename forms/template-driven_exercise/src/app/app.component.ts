@@ -8,9 +8,24 @@ import { NgForm } from '@angular/forms';
 })
 export class AppComponent {
 
-  defaultSubscription = 'basic';
+  defaultSubscription = 'advanced';
+  submitted = false;
+
+  formData = {
+    email: '',
+    subscription: '',
+    password: ''
+  }
 
   onSubmit(form: NgForm) {
-    console.log(form);
+    console.log(form.value);
+
+    this.submitted = true;
+
+    this.formData.email = form.value.email;
+    this.formData.subscription = form.value.subscription;
+    this.formData.password = form.value.password;
+
+    form.reset();
   }
 }
