@@ -8,8 +8,9 @@ import { NgForm } from '@angular/forms';
 })
 export class AppComponent {
 
-  defaultSubscription = 'advanced';
+  defaultSubscription = 'Advanced';
   submitted = false;
+  subscriptions = ['Basic', 'Advanced', 'Pro'];
 
   formData = {
     email: '',
