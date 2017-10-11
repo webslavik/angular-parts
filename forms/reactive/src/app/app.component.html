@@ -10,8 +10,10 @@
               id="username"
               formControlName='username'
               class="form-control">
-            <div *ngIf='!signupForm.get("userData.username").valid && signupForm.get("userData.username").touched' 
-                 class="help-block">Enter your name</div>
+            <div *ngIf='!signupForm.get("userData.username").valid && signupForm.get("userData.username").touched' class="help-block">
+              <div *ngIf='signupForm.get("userData.username").errors["nameIsForbinned"]' class="help-block">This name is invalid</div>
+              <div *ngIf='signupForm.get("userData.username").errors["required"]' class="help-block">Field is required</div>
+            </div>
           </div>
           <div class="form-group">
             <label for="email">email</label>
@@ -20,8 +22,9 @@
               id="email"
               formControlName='email'
               class="form-control">
-              <div *ngIf='!signupForm.get("userData.email").valid && signupForm.get("userData.email").touched' 
-              class="help-block">Enter your email</div>
+              <div *ngIf='!signupForm.get("userData.email").valid && signupForm.get("userData.email").touched' class="help-block">
+                  Dude, enter correct email
+              </div>
           </div>
         </div>
         <div class="radio" *ngFor="let gender of genders">
@@ -43,7 +46,7 @@
         <div *ngIf='!signupForm.valid && signupForm.touched' 
         class="help-block">Fill form</div>
         <br>
-        <button [disabled]='!signupForm.valid' class="btn btn-primary" type="submit">Submit</button>
+        <button class="btn btn-primary" type="submit">Submit</button>
       </form>
     </div>
   </div>
