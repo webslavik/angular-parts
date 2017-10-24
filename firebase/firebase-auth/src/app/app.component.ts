@@ -19,23 +19,27 @@ export class AppComponent {
     name: '',
     email: '',
     password: '',
+    photo: '',
+    position: '',
   };
   
   constructor(public auth: AuthService) {}
 
   onSignup() {
+    this.auth.signUp(this.user);
+  }
+  
+  onSignin() {
     this.auth.signIn(this.user.email, this.user.password);
   }
 
-  fromLocalStorage() {
-    console.log(localStorage.getItem('firebase'));
+  onSignout() {
+    this.auth.signOut();
   }
+
 
   onGoogleSignup() {
     this.auth.googleLogin();
   }
 
-  onSignOut() {
-    this.auth.signOut();
-  }
 }

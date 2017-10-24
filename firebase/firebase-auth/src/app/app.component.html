@@ -1,33 +1,41 @@
-<div>
-  <input type="text" [(ngModel)]='user.name' placeholder="name">
-</div>
-<div>
-  <input type="text" [(ngModel)]='user.email' placeholder="email">
-</div>
-<div>
-  <input type="text" [(ngModel)]='user.password' placeholder="password">
-</div>
-
-<button (click)='onSignup()'>Sign up</button>
-
-<hr>
-
-<div *ngIf='auth.user | async; then authenticated else guest'></div>
-
-<!-- User NOT logged in -->
-<ng-template #guest>
-  <h3>Howdy, GUEST</h3>
-  <p>Login to get started...</p>
-  <button (click)='onGoogleSignup()'>Google Auth</button>
-</ng-template>
-
-<!-- User logged in -->
-<ng-template #authenticated>
-  <div *ngIf="auth.user | async as user">
-      <h3>Howdy, {{ user.displayName }}</h3>
-      <img [src]="user.photoURL">
-      <p>UID: {{ user.uid }}</p>
-      <p>Favorite Color: {{ user?.favoriteColor }} </p>
-      <button (click)='onSignOut()'>Sign out</button>
+<div class="container">
+  <div class="form-group">
+    <input type="text" class="form-control" [(ngModel)]='user.name' placeholder="name">
   </div>
-</ng-template>
+  <div class="form-group">
+    <input type="text" class="form-control" [(ngModel)]='user.email' placeholder="email">
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" [(ngModel)]='user.position' placeholder="position">
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" [(ngModel)]='user.photo' placeholder="photo">
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" [(ngModel)]='user.password' placeholder="password">
+  </div>
+  
+  <br>
+  <button class='btn btn-primary' (click)='onSignup()'>Sign up</button>
+  <button class='btn btn-primary' (click)='onSignin()'>Sign in</button>
+  <button class='btn btn-primary' (click)='onSignout()'>Sign out</button>
+
+  <hr>
+
+  <div *ngIf='!auth.isAuthenticated()'>
+    <h2>Hello Guest!</h2>
+    <div>You need Sign up or Sigin</div>
+  </div>
+
+  <div *ngIf='auth.isAuthenticated()'>
+    <h2>User info:</h2>
+    <div>Name: </div>
+    <div>email: </div>
+    <div>password: </div>
+    <div>photo: </div>
+    <div>position: </div>
+    <div>user id: </div>
+  </div>
+  
+</div>
+

@@ -9,41 +9,61 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/switchMap';
 
 
-interface User {
-  uid: string;
-  email: string;
-  photoURL?: string;
-  displayName?: string;
-  favoriteColor?: string;
-}
+// interface User {
+//   uid: string;
+//   email: string;
+//   password: string;
+//   name: string;
+//   photo: string;
+//   position: string;
+// }
 
 
 @Injectable()
 export class AuthService {
 
-  user: Observable<User>;
+  // user: Observable<User>;
+  user;
+  token;
 
   constructor(private afAuth: AngularFireAuth,
               private afs: AngularFirestore) { 
 
-    this.user = this.afAuth.authState
-                    .switchMap(user => {
-                      if (user) {
-                        return this.afs.doc(`users/${user.uid}`).valueChanges();
-                      } else {
-                        return Observable.of(null);
-                      }
-                    });
+    // this.user = this.afAuth.authState
+    //                 .switchMap(user => {
+    //                   if (user) {
+    //                     return this.afs.doc(`users/${user.uid}`).valueChanges();
+    //                   } else {
+    //                     return Observable.of(null);
+    //                   }
+    //                 });
 
-    console.log(this.afAuth.authState);
+    // console.log(this.afAuth.authState);
+  }
+
+  signUp(user) {
+    this.user = user;
+
+    this.afAuth.auth.createUserWithEmailAndPassword(this.user.email, this.user.password)
+        .then(credentials => {
+          this.updateUserData(credentials);
+          // return this.user;
+        });
   }
 
   signIn(email: string, password: string) {
-    this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-        .then(credentials => {
-          this.updateUserData(credentials);
-          return this.user;
+    this.afAuth.auth.signInWithEmailAndPassword(email, password)
+        .then(response => {
+
+          this.afAuth.auth.currentUser.getIdToken()
+              .then((token: string) => {
+                this.token = token;
+              });
         });
+  }
+
+  isAuthenticated() {
+    return this.token != null;
   }
 
   googleLogin() {
@@ -60,13 +80,15 @@ export class AuthService {
   }
 
   private updateUserData(user) {
-    const userRef = this.afs.doc(`users/${user.uid}${111111}`);
+    const userRef = this.afs.doc(`users/${user.uid}`);
 
-    const data: User = {
+    const data = {
       uid: user.uid,
       email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL
+      password: this.user.password,
+      name: this.user.name,
+      photo: this.user.photo,
+      position: this.user.position
     }
 
     return userRef.set(data);
