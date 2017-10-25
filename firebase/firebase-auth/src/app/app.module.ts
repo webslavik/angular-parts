@@ -9,6 +9,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { AuthService } from './auth/auth.service';
+import { UserService } from './user.service';
 
 const config = {
   apiKey: "AIzaSyCa_22zk5PEbEN0GPQsSNdrPU01Ee_4keQ",
@@ -21,7 +22,7 @@ const config = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +31,7 @@ const config = {
     AngularFireAuthModule,
     AngularFirestoreModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

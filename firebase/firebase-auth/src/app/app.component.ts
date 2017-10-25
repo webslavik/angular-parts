@@ -1,3 +1,4 @@
+import { UserService } from './user.service';
 import { Component } from '@angular/core';
 
 import { AuthService } from './auth/auth.service';
@@ -23,7 +24,8 @@ export class AppComponent {
     position: '',
   };
   
-  constructor(public auth: AuthService) {}
+  constructor(public auth: AuthService,
+              public userService: UserService) {}
 
   onSignup() {
     this.auth.signUp(this.user);
@@ -31,15 +33,15 @@ export class AppComponent {
   
   onSignin() {
     this.auth.signIn(this.user.email, this.user.password);
+
+    // console.log(typeof this.userService.getUserInfo());
   }
 
   onSignout() {
     this.auth.signOut();
   }
 
-
-  onGoogleSignup() {
-    this.auth.googleLogin();
+  onGetInfo() {
+    this.userService.getUserInfo();
   }
-
 }
