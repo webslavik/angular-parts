@@ -6,6 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { ShoppingEditComponent } from './shopping-edit/shopping-edit.component';
 import { ShoppingListComponent } from './shopping-list.component';
 
+// Modules
+import { ShoppingListRouting } from './shopping-list-routing.module';
+
 @NgModule({
   declarations: [
     ShoppingListComponent,
@@ -13,7 +16,8 @@ import { ShoppingListComponent } from './shopping-list.component';
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    ShoppingListRouting
   ]
 })
 export class ShoppingListModule {}

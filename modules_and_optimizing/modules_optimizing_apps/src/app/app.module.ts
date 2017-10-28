@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 //Components
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 
 // Services
@@ -25,6 +26,7 @@ import { SharedModule } from './shared/shared.module';
   declarations: [
     AppComponent,
     HeaderComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
